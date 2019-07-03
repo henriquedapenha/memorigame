@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Meta tags -->
+	<title>Apps Login Form a Simple Login form Responsive Widget :: w3layouts</title>
+	<meta name="keywords" content="Apps Login Form Responsive widget, Flat Web Templates, Android Compatible web template, 
+	Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- stylesheets -->
+	<link rel="stylesheet" href="css/font-awesome.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="perguntas.js" ></script>
+
+</head>
+<body>
+	<div class="agile-login">
+		<h1>MEMORIGAME</h1>
+		<div class="wrapper">
+			<conteudo></conteudo>
+		</div>
+		<br>
+		<div class="copyright">
+		<p>© 2018 Apps Login. All rights reserved | Design by <a href="www.w3layouts.com">W3layouts</a></p> 
+	</div>
+	</div>
+	
+</body>
+	<script>
+		totalAcertos= new Array();
+		/*
+		Ao adicionar elementos no array totalAcertos
+		o valor 1 é igual a pergunta correta,
+		e o valor 0 para perguntas incorretas.
+		*/
+
+		function validacao(argument) {
+		//argument = argument.getAttribute("escolha");
+			resposta = argument.getAttribute("escolha");
+			console.log(resposta == "false")
+			var mensagem="você errou";	
+			if (resposta == "1") {
+				mensagem ="você acertou";
+				totalAcertos.push(1);
+
+			}else{
+				totalAcertos.push(0);
+
+			}
+			alert(mensagem);	
+			start();
+		}
+                
+            function start(){
+				min = Math.ceil(0);
+				max = Math.floor(listaPerguntas.length -1);
+				var numero = Math.floor(Math.random() * (max - min + 1)) + min;
+				var Pergunta = listaPerguntas[numero];
+				//var root = document.getElementById("root");
+				document.getElementsByTagName("conteudo")[0].innerHTML = "<img style='width:100%' src='"+Pergunta.imagem+"' />";
+				
+				//root.innerHTML = "<img src='imagens/"+Pergunta.imagem+"' />";
+    
+                setTimeout(function(){
+                    //document.getElementById("pergunta").innerText="testes";
+				document.getElementsByTagName("conteudo")[0].innerHTML = '<h1>Que comece o Jogo!</h1><h2>'+Pergunta.pergunta+'</h2>';
+                    for (var i = 0; i < Pergunta.alternativas.length; i++) {
+                    var escolha = 0;
+                    if (Pergunta.resposta==Pergunta.alternativas[i]) {
+						escolha = 1;
+                    }
+					var node = document.createElement("button");
+					node.setAttribute("escolha",escolha)
+					var textnode = document.createTextNode(Pergunta.alternativas[i]);
+					node.appendChild(textnode);     
+                    node.onclick= function(){validacao(this)};
+					var ul = document.createElement("ul");
+					ul.appendChild(node);
+					document.getElementsByTagName("conteudo")[0].appendChild(ul);
+                     }
+                    
+                        
+                },5000);
+            }
+
+                
+//inicial            
+	start();
+	</script>
+</html>
